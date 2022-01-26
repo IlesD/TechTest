@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Product.Api.Clients;
+using Product.Api.Services;
 
 namespace Product.Api
 {
@@ -31,6 +33,9 @@ namespace Product.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Product.Api", Version = "v1" });
             });
+
+            services.AddScoped<IProductClient, MockyClient>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
