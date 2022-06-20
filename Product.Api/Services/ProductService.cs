@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
-using System.Text.RegularExpressions;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Product.Api.Clients;
 using Product.Api.Models;
+
+[assembly: InternalsVisibleTo("Product.Api.Tests")]
 
 namespace Product.Api.Services
 {
     public class ProductService : IProductService
     {
         private const string BaseUrl = "https://run.mocky.io/v3/0656ee96-a801-40be-99dc-94d10acc287a";
+        private const string GenericErrorMessage = "Sorry! Something's gone wrong";
         private readonly IProductClient _productClient;
 
         public ProductService(IProductClient productClient)
@@ -27,11 +29,13 @@ namespace Product.Api.Services
 
             if (!productResult.IsSuccessStatusCode)
             {
+                // var errorMessage = productResult.Content
                 return new ActionResponse<FilteredProductsResponse>
                 {
-                    ErrorMessage = productResult.Content.ToString(),
-                    Message = productResult.ReasonPhrase,
-                    StatusCode = productResult.StatusCode
+                    ErrorMessage = productResult.Content?.ToString() ?? 
+                        $"GetProducts failure. Response content could not be read. Status code: {productResult.StatusCode}",
+                    Message = GenericErrorMessage,
+                    StatusCode = HttpStatusCode.FailedDependency
                 };
             }
 
@@ -50,9 +54,9 @@ namespace Product.Api.Services
                 };
             }
 
-            var productFilters = ParseProductFilters(productContent.Products); // Create filter object based upon the data of the products returned by the client
+            var productFilters = ParseProductFilters(productContent.Products);
 
-            FilterProducts(productContent, maxPriceFilter, sizeFilter); // Filter products by price & size
+            FilterProducts(productContent, maxPriceFilter, sizeFilter);
             
             AddDescriptionHighlights(productContent.Products, highlightFilter);
 
@@ -67,7 +71,7 @@ namespace Product.Api.Services
             };
         }
 
-        private static void AddDescriptionHighlights(List<Models.Product> products, string? highlightFilter)
+        internal void AddDescriptionHighlights(List<Models.Product> products, string? highlightFilter)
         {
             if (string.IsNullOrEmpty(highlightFilter)) return;
             
@@ -81,7 +85,8 @@ namespace Product.Api.Services
             }
         }
 
-        private static ProductFilters ParseProductFilters(List<Models.Product> productContent)
+        // Create filter object based upon the data of the products returned by the client
+        internal ProductFilters ParseProductFilters(List<Models.Product> productContent)
         {
             var filters = new ProductFilters
             {
@@ -96,7 +101,7 @@ namespace Product.Api.Services
 
         // Get each word from each description, find out how many times each word appears in all the descriptions,...
         // ..., select the ten most common words from the descriptions, excluding the most common five
-        private static string[] GetDescriptionsHighlights(IEnumerable<Models.Product> productContent)
+        internal string[] GetDescriptionsHighlights(IEnumerable<Models.Product> productContent)
         {
             var words = productContent.SelectMany(p 
                 => p.Description.ToLower().Replace(".", "").Split(' ')).ToList(); 
@@ -113,7 +118,8 @@ namespace Product.Api.Services
             return highlights;
         }
 
-        private static void FilterProducts(ClientProductsResponse productContent, int? maxPriceFilter, string? sizeFilter)
+        // Filter products by price & size
+        internal void FilterProducts(ClientProductsResponse productContent, int? maxPriceFilter, string? sizeFilter)
         {
             if (maxPriceFilter.HasValue) // If price filter provided, filter by price
             {

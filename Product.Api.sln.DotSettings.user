@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=44e9abda_002Df472_002D4ffa_002Db4c9_002Dc009578797a7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Return_Products_When_ProductClient_Returns_OkResult" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;MSTest::F3CCB591-C75B-4ED0-BD59-F9C0080A1183::net5.0::Product.Api.Tests.ProductServiceShould.Return_Products_When_ProductClient_Returns_OkResult&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::F3CCB591-C75B-4ED0-BD59-F9C0080A1183::net5.0::Product.Api.Tests.ProductServiceShould.Return_Error_When_ProductClient_DoesNotReturn_OkResult&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::F3CCB591-C75B-4ED0-BD59-F9C0080A1183::net5.0::Product.Api.Tests.ProductServiceShould.AddDescriptionHighlights_Should_Highlight_Select_Words&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::F3CCB591-C75B-4ED0-BD59-F9C0080A1183::net5.0::Product.Api.Tests.ProductServiceShould.ParseProductFilters_Should_Return_ProductFilters&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::F3CCB591-C75B-4ED0-BD59-F9C0080A1183::net5.0::Product.Api.Tests.ProductServiceShould.FilterProducts_Should_Return_ProductFilters&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Mocky/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
