@@ -13,7 +13,7 @@ namespace Product.Api.Services
 {
     public class ProductService : IProductService
     {
-        private const string BaseUrl = "https://run.mocky.io/v3/0656ee96-a801-40be-99dc-94d10acc287a";
+        private const string BaseUrl = "to_be_updated"; // TODO pull from app settings
         private const string GenericErrorMessage = "Sorry! Something's gone wrong";
         private readonly IProductClient _productClient;
 

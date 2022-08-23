@@ -16,17 +16,16 @@ namespace Product.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProduct([FromQuery(Name = "maxPrice")]int? maxPriceFilter, [FromQuery(Name = "size")]string? sizeFilter, 
+        public async Task<IActionResult> GetProduct(
+            [FromQuery(Name = "maxPrice")]int? maxPriceFilter, 
+            [FromQuery(Name = "size")]string? sizeFilter, 
             [FromQuery(Name = "highlight")]string? highlightFilter)
         {
             var productsResponse = await _productService.GetProducts(maxPriceFilter, sizeFilter, highlightFilter);
 
-            if (productsResponse.IsSuccessStatusCode)
-            {
-                return Ok(productsResponse.Response);
-            }
-            
-            return Ok();
+            return productsResponse.IsSuccessStatusCode 
+            ? Ok(productsResponse.Response) 
+            : BadRequest(productsResponse);
         }
     }
 }
